@@ -6,6 +6,7 @@ import { Store } from '@ngrx/store';
 import { CartActions } from '../../../cart/state/cart.actions';
 import { Product } from '../../models/product.model';
 import { Location } from '@angular/common';
+import { ToastService } from '../../../../core/services/toast.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -21,7 +22,8 @@ export class ProductDetailComponent {
     private route: ActivatedRoute,
     private productService: ProductService,
     private store: Store,
-    private location: Location
+    private location: Location,
+    private toast: ToastService
   ) {
     const slug = this.route.snapshot.paramMap.get('slug');
     if (slug) {
@@ -47,6 +49,11 @@ export class ProductDetailComponent {
         },
       })
     );
+    this.toast.show({
+      type: 'success',
+      message: `"${name}" added to cart`,
+      duration: 3000,
+    });
   }
 
   goBack() {

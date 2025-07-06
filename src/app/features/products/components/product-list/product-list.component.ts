@@ -8,6 +8,7 @@ import { CartActions } from '../../../cart/state/cart.actions';
 import { selectCartItems } from '../../../cart/state/cart.selectors';
 import { Router, RouterLink } from '@angular/router';
 import { CartItem } from '../../../cart/models/cart-item.model';
+import { ToastService } from '../../../../core/services/toast.service';
 
 @Component({
   selector: 'app-product-list',
@@ -24,7 +25,8 @@ export class ProductListComponent {
   constructor(
     private productService: ProductService,
     private store: Store,
-    private router: Router
+    private router: Router,
+    private toast: ToastService
   ) {}
 
   handleAddToCart(product: Product) {
@@ -39,6 +41,11 @@ export class ProductListComponent {
         },
       })
     );
+    this.toast.show({
+      type: 'success',
+      message: `"${product.name}" added to cart`,
+      duration: 3000,
+    });
   }
 
   getCartTotal(cart: CartItem[]): number {
@@ -53,5 +60,4 @@ export class ProductListComponent {
     this.cartVisible = false;
     this.router.navigate(['/cart']);
   }
-  
 }
