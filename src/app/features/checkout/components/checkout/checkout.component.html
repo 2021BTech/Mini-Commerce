@@ -1,44 +1,44 @@
-<div class="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+<div class="min-h-screen bg-gray-100 py-6 px-4 sm:py-8 sm:px-6 lg:px-8">
   <div class="max-w-3xl mx-auto">
     <!-- Header -->
-    <div class="text-center mb-8">
-      <h1 class="text-4xl font-extrabold text-black">Checkout</h1>
-      <p class="mt-2 text-lg text-gray-800">Review your order before payment</p>
+    <div class="text-center mb-6 sm:mb-8">
+      <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-black">Checkout</h1>
+      <p class="mt-1 sm:mt-2 text-base sm:text-lg text-gray-800">Review your order before payment</p>
     </div>
 
     <!-- Order Summary Card -->
-    <div class="bg-white shadow-xl rounded-lg overflow-hidden">
+    <div class="bg-white shadow-md sm:shadow-xl rounded-lg overflow-hidden">
       <!-- Order Items -->
-      <div class="p-6 sm:p-8">
-        <h2 class="text-xl font-semibold text-gray-800 mb-6">Your Order</h2>
+      <div class="p-4 sm:p-6 lg:p-8">
+        <h2 class="text-lg sm:text-xl font-semibold text-gray-800 mb-4 sm:mb-6">Your Order</h2>
 
-        <div class="space-y-4">
+        <div class="space-y-3 sm:space-y-4">
           <div
             *ngFor="let item of items$ | async"
-            class="flex items-center justify-between border-b border-gray-100 pb-4"
+            class="flex flex-col xs:flex-row xs:items-center justify-between gap-2 xs:gap-4 border-b border-gray-100 pb-3 sm:pb-4"
           >
-            <div class="flex items-center space-x-4">
+            <div class="flex items-center space-x-3 sm:space-x-4">
               <img
                 [src]="item.imageUrl"
                 [alt]="item.name"
-                class="w-16 h-16 object-cover rounded-lg"
+                class="w-12 h-12 sm:w-16 sm:h-16 object-cover rounded-lg"
               />
               <div>
-                <h3 class="font-medium text-gray-900">{{ item.name }}</h3>
-                <p class="text-sm text-gray-500">Qty: {{ item.quantity }}</p>
+                <h3 class="text-sm sm:text-base font-medium text-gray-900">{{ item.name }}</h3>
+                <p class="text-xs sm:text-sm text-gray-500">Qty: {{ item.quantity }}</p>
               </div>
             </div>
-            <span class="font-medium text-gray-900"
+            <span class="text-sm sm:text-base font-medium text-gray-900 self-end xs:self-auto"
               >₦{{ item.price * item.quantity | number : "1.0-0" }}</span
             >
           </div>
         </div>
 
         <!-- Order Total -->
-        <div class="mt-8 pt-6 border-t border-gray-200">
+        <div class="mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-gray-200">
           <div class="flex justify-between items-center">
-            <span class="text-lg font-medium text-gray-500">Total</span>
-            <span class="text-2xl font-bold text-gray-900"
+            <span class="text-base sm:text-lg font-medium text-gray-500">Total</span>
+            <span class="text-xl sm:text-2xl font-bold text-gray-900"
               >₦{{ total$ | async | number : "1.0-0" }}</span
             >
           </div>
@@ -46,10 +46,10 @@
       </div>
 
       <!-- Payment Section -->
-      <div class="bg-gray-50 px-6 py-5 sm:px-8 sm:py-7">
-        <h2 class="text-lg font-medium text-gray-900 mb-4">Payment Method</h2>
+      <div class="bg-gray-50 px-4 py-4 sm:px-6 sm:py-5 lg:px-8 lg:py-7">
+        <h2 class="text-base sm:text-lg font-medium text-gray-900 mb-3 sm:mb-4">Payment Method</h2>
 
-        <div class="space-y-4">
+        <div class="space-y-3 sm:space-y-4">
           <div class="flex items-center">
             <input
               id="card"
@@ -60,7 +60,7 @@
             />
             <label
               for="card"
-              class="ml-3 block text-sm font-medium text-gray-700"
+              class="ml-3 block text-xs sm:text-sm font-medium text-gray-700"
             >
               Credit/Debit Card
             </label>
@@ -74,7 +74,7 @@
             />
             <label
               for="transfer"
-              class="ml-3 block text-sm font-medium text-gray-700"
+              class="ml-3 block text-xs sm:text-sm font-medium text-gray-700"
             >
               Bank Transfer
             </label>
@@ -88,7 +88,7 @@
             />
             <label
               for="pay-on-delivery"
-              class="ml-3 block text-sm font-medium text-gray-700"
+              class="ml-3 block text-xs sm:text-sm font-medium text-gray-700"
             >
               Pay on Delivery
             </label>
@@ -98,18 +98,18 @@
 
       <!-- Action Buttons -->
       <div
-        class="px-6 py-4 bg-gray-50 border-t border-gray-200 flex justify-between items-center"
+        class="px-4 py-3 sm:px-6 sm:py-4 bg-gray-50 border-t border-gray-200 flex flex-col-reverse xs:flex-row justify-between items-center gap-3 sm:gap-4"
       >
         <button
           (click)="navigateTo('/cart')"
-          class="inline-flex items-center text-center px-6 py-3 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+          class="w-full xs:w-auto inline-flex justify-center items-center text-center px-4 py-2 sm:px-6 sm:py-3 border border-gray-300 rounded-md shadow-sm text-xs sm:text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
         >
           Continue Shopping
         </button>
 
         <button
           (click)="placeOrder()"
-          class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-primary hover:bg-secondary hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+          class="w-full xs:w-auto inline-flex justify-center items-center px-4 py-2 sm:px-6 sm:py-3 border border-transparent text-xs sm:text-sm md:text-base font-medium rounded-md shadow-sm text-white bg-primary hover:bg-secondary hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
         >
           Complete Order →
         </button>
@@ -117,14 +117,14 @@
     </div>
 
     <!-- Order Summary -->
-    <div class="mt-8 bg-white shadow rounded-lg overflow-hidden">
-      <div class="p-6 sm:p-8">
-        <h2 class="text-lg font-medium text-gray-900 mb-4">Order Summary</h2>
+    <div class="mt-6 sm:mt-8 bg-white shadow-md sm:shadow-lg rounded-lg overflow-hidden">
+      <div class="p-4 sm:p-6 lg:p-8">
+        <h2 class="text-base sm:text-lg font-medium text-gray-900 mb-3 sm:mb-4">Order Summary</h2>
 
-        <div class="space-y-3">
+        <div class="space-y-2 sm:space-y-3">
           <div
             *ngFor="let item of items$ | async"
-            class="flex justify-between text-sm"
+            class="flex justify-between text-xs sm:text-sm"
           >
             <span class="text-gray-600"
               >{{ item.name }} × {{ item.quantity }}</span
@@ -135,8 +135,8 @@
           </div>
         </div>
 
-        <div class="mt-6 pt-4 border-t border-gray-200">
-          <div class="flex justify-between text-lg font-medium text-gray-900">
+        <div class="mt-4 sm:mt-6 pt-3 sm:pt-4 border-t border-gray-200">
+          <div class="flex justify-between text-base sm:text-lg font-medium text-gray-900">
             <span>Total</span>
             <span>₦{{ total$ | async | number : "1.0-0" }}</span>
           </div>
