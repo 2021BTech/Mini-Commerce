@@ -1,0 +1,107 @@
+<div class="min-h-screen bg-blue-50 py-12 px-4 sm:px-6 lg:px-8 ">
+  <div class="max-w-4xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+  <!-- Cart Header -->
+  <div class="flex items-center justify-between mb-8">
+    <div>
+      <h1 class="text-3xl font-bold text-gray-900">Your Shopping Cart</h1>
+      <p class="mt-1 text-gray-500">Review and manage your items</p>
+    </div>
+    <span
+      class="inline-flex items-center px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium"
+    >
+      {{ (items$ | async)?.length || 0 }} items
+    </span>
+  </div>
+
+  <!-- Cart Items -->
+  <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+    <!-- Empty State -->
+    <div *ngIf="!(items$ | async)?.length" class="p-12 text-center">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-12 w-12 mx-auto text-gray-400"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="1.5"
+          d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+        />
+      </svg>
+      <h3 class="mt-4 text-lg font-medium text-gray-900">Your cart is empty</h3>
+      <p class="mt-1 text-gray-500">Browse our products to add items</p>
+      <br>
+      <button
+        (click)="navigateTo('/')"
+        class="flex-1 text-center px-6 py-3 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+      >
+        Continue Shopping
+      </button>
+    </div>
+
+    <!-- Cart Items List -->
+    <div *ngIf="(items$ | async)?.length" class="divide-y divide-gray-200">
+      <app-cart-item
+        *ngFor="let item of items$ | async"
+        [item]="item"
+        class="hover:bg-gray-50 transition-colors duration-150"
+      ></app-cart-item>
+    </div>
+  </div>
+
+  <!-- Order Summary -->
+  <div
+    *ngIf="(items$ | async)?.length"
+    class="mt-8 bg-white rounded-xl shadow-sm overflow-hidden"
+  >
+    <div class="p-6 sm:p-8">
+      <h2 class="text-lg font-medium text-gray-900 mb-6">Order Summary</h2>
+
+      <div class="space-y-4">
+        <div class="flex justify-between">
+          <span class="text-gray-600">Subtotal</span>
+          <span class="text-gray-900"
+            >₦{{ total$ | async | number : "1.0-0" }}</span
+          >
+        </div>
+        <div class="flex justify-between">
+          <span class="text-gray-600">Shipping</span>
+          <span class="text-gray-900">₦0</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-gray-600">Tax</span>
+          <span class="text-gray-900">Calculated at checkout</span>
+        </div>
+      </div>
+
+      <div class="mt-6 pt-4 border-t border-gray-200">
+        <div class="flex justify-between text-lg font-bold text-gray-900">
+          <span>Total</span>
+          <span>₦{{ total$ | async | number : "1.0-0" }}</span>
+        </div>
+      </div>
+
+      <div class="mt-8 flex flex-col sm:flex-row gap-4">
+        <button
+          (click)="navigateTo('/')"
+          class="flex-1 text-center px-6 py-3 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+        >
+          Continue Shopping
+        </button>
+
+        <button
+          (click)="navigateTo('/checkout')"
+          class="flex-1 text-center px-6 py-3 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-secondary hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+        >
+          Proceed to Checkout
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+

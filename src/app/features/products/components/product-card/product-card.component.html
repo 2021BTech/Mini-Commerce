@@ -1,0 +1,25 @@
+<div
+  class="rounded-lg shadow-md p-4 hover:shadow-lg transition duration-300 bg-white"
+>
+  <!-- Make card content clickable -->
+  <a [routerLink]="['/product', product.slug]" class="block">
+    <img
+      [src]="product.imageUrl"
+      [alt]="product.name"
+      class="w-full h-48 object-cover rounded-md mb-3"
+    />
+    <h2 class="text-lg font-semibold">{{ product.name }}</h2>
+    <p class="text-sm text-gray-500 mb-2">{{ product.description }}</p>
+    <p class="font-bold text-primary">
+      ₦{{ product.price | number : "1.0-0" }}
+    </p>
+  </a>
+
+  <!-- Add to Cart is separate -->
+  <button
+    (click)="onAddToCart($event)"
+    class="mt-3 px-4 py-2 bg-primary text-white rounded hover:bg-secondary w-full hover:text-black transition duration-300"
+  >
+    Add to Cart
+  </button>
+</div>
